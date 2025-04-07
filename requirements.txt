@@ -1,0 +1,5 @@
+chardet
+dictdiffer
+pandas
+typer
+openpyxl

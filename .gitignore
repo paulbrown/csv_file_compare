@@ -1,0 +1,5 @@
+# Ignore vscode editor-specific files
+.vscode/
+
+# Ignore python virtual environment used for development
+.venv/
