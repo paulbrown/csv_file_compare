@@ -9,5 +9,6 @@
           "ms-python.python"
         ]
       }
-    }
+    },
+    "postStartCommand": "pip install -r requirements.txt"
   }
