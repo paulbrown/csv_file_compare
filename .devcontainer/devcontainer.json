@@ -5,10 +5,11 @@
     },
     "customizations": {
       "vscode": {
+        "settings": {},
         "extensions": [
           "ms-python.python"
         ]
       }
     },
-    "postStartCommand": "pip install -r requirements.txt"
+    "postStartCommand": "pip install --upgrade pip && pip install -r requirements.txt"
   }
