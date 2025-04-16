@@ -4,27 +4,26 @@ from dictdiffer import diff
 import typer
 from pathlib import Path
 from typing_extensions import Annotated
-from typing import List, Optional
+from typing import List, Optional, Dict
 import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
 # Function to import CSV and zip heading and lines into a data structure
-def load_csv(filePath: str, keys: list[str]):
-    keySeperator: str = "_"
+def load_csv(filePath: str, keys: List[str]) -> Dict[str, Dict[str, str]]:
+    key_separator = "_"
 
-    with open(filePath, mode = 'rb') as f:
-        data = f.read()
-        encoding = chardet.detect(data).get("encoding")
-        print(f"Encoding for {filePath} has been determined: {encoding}")
-    
-        with open(filePath, mode = 'r', encoding = encoding) as file:          
+    try:
+        with open(filePath, mode='rb') as f:
+            data = f.read()
+            encoding = chardet.detect(data).get("encoding")
+            print(f"Encoding for {filePath} has been determined: {encoding}")
+
+        with open(filePath, mode='r', encoding=encoding) as file:
             csvFile = csv.reader(file)
             line1 = next(csvFile)
 
-            # HACKATY-HACKATY YAK YAK: Matt made me do it!!!
-            # Make the bad row1 in exported SF report row go-away
-            # if present in CSV, use the correct line for header zipping
+            # Handle unwanted metadata rows
             headerCrap = ["Exported", "Exportado", "diekspor", "Exporté", "Eksportert", "Wyeksportowano", "Exporterat", "Экспортировано", "导出到"]
             if any(item in headerCrap for item in line1[0].split()):
                 next(csvFile)
@@ -33,10 +32,11 @@ def load_csv(filePath: str, keys: list[str]):
                 heading = line1
 
             rows = [dict(zip(heading, line)) for line in csvFile]
-            keyFn = lambda r: keySeperator.join([r[x] for x in keys])
-            # Bit of dictionary comprehension to make our key using lambda function
-            result = {keyFn(r): r for r in rows}
-            return result
+            key_fn = lambda r: key_separator.join([r[x] for x in keys])
+            return {key_fn(r): r for r in rows}
+    except Exception as e:
+        print(f"Error loading CSV file {filePath}: {e}")
+        raise
     
 
 # Function to compare 2 CSV file which have the same nature or structure
