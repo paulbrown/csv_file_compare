@@ -1,15 +1,18 @@
 {
-    "name": "Python Dev",
-    "build":{
-      "dockerfile": "Dockerfile"
-    },
-    "customizations": {
-      "vscode": {
-        "settings": {},
-        "extensions": [
-          "ms-python.python"
-        ]
-      }
-    },
-    "postStartCommand": "pip install --upgrade pip && pip install -r requirements.txt"
-  }
+  "name": "Python Dev",
+  "build":{
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.terminal.activateEnvironment": true,
+        "python.defaultInterpreterPath": ".venv/bin/python"
+      },
+      "extensions": [
+        "ms-python.python"
+      ]
+    }
+  },
+  "postStartCommand": "python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
+}
