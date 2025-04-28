@@ -1,18 +1,16 @@
 {
-  "name": "Python Dev",
+  "name": "Python Development Environment",
   "build":{
     "dockerfile": "Dockerfile"
   },
   "customizations": {
     "vscode": {
-      "settings": {
-        "python.terminal.activateEnvironment": true,
-        "python.defaultInterpreterPath": ".venv/bin/python"
-      },
+      "settings": {},
       "extensions": [
         "ms-python.python"
       ]
     }
   },
-  "postStartCommand": "python -m venv .venv && . .venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
+  "remoteEnv": {},
+  "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt"
 }
