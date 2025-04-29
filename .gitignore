@@ -3,3 +3,6 @@
 
 # Ignore python virtual environment used for development
 .venv/
+
+# Ignore pycache used for creating mocks and unit tests
+__pycache__/
