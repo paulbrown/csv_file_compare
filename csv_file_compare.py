@@ -17,7 +17,6 @@ def load_csv(filePath: str, keys: List[str]) -> Dict[str, Dict[str, str]]:
         with open(filePath, mode='rb') as f:
             data = f.read()
             encoding = chardet.detect(data).get("encoding")
-            print(f"Encoding for {filePath} has been determined: {encoding}")
 
         with open(filePath, mode='r', encoding=encoding) as file:
             csvFile = csv.reader(file)
